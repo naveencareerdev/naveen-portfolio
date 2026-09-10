@@ -21,8 +21,6 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         {!prefersReducedMotion && <ShaderAnimation />}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,11,15,0.18)_48%,rgba(8,11,15,0.82)_100%)]" />
-        <div className="absolute -left-[28%] top-[4%] h-[16vh] w-[155%] -rotate-[43deg] bg-[linear-gradient(90deg,transparent_0%,#ff7b3d_15%,#fff5cb_23%,#38cfff_34%,transparent_48%,#3d5dff_63%,#fff7c8_77%,#ff7842_87%,transparent_100%)] opacity-80 blur-[5px]" />
-        <div className="absolute -right-[30%] bottom-[3%] h-[14vh] w-[155%] -rotate-[43deg] bg-[linear-gradient(90deg,transparent_0%,#ff7540_15%,#fff2b7_24%,#40d7ff_37%,transparent_51%,#4c5eff_64%,#fff8d1_77%,#ff794b_89%,transparent_100%)] opacity-70 blur-[7px]" />
         <div className="absolute inset-0 bg-black/25" />
       </div>
 
