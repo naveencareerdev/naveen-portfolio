@@ -177,7 +177,7 @@ function Band({ isMobile, frontImage, backImage, imageFit, lanyardImage, lanyard
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={cardScale}
-            position={[0, -1.2, -0.05]}
+            position={[0, -2.05, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={(event) => { event.target.releasePointerCapture(event.pointerId); drag(false); }}
