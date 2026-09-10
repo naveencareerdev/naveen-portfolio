@@ -10,11 +10,6 @@ const CONTENT_SELECTOR =
 function overContent(target) {
   if (!(target instanceof Element)) return true;
   if (target.closest(CONTENT_SELECTOR) || target.closest("#hero")) return true;
-  let current = target;
-  while (current && current !== document.body) {
-    if (current.textContent?.trim()) return true;
-    current = current.parentElement;
-  }
   return false;
 }
 
