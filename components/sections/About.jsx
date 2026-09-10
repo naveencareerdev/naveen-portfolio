@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { ArrowDownRight, Download, FileText, MapPin } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
-import { MorphingText } from "@/components/ui/morphing-text";
 import { about, personal } from "@/lib/data";
 
 export default function About() {
@@ -38,13 +37,7 @@ export default function About() {
         <div className="lg:col-span-8">
           <Reveal variant="fade-up">
             <h2 className="max-w-4xl text-clamp-h2 font-display font-medium leading-[1.05] text-bone">
-              <MorphingText
-                texts={[
-                  "Systems that stay correct\nwhen everything else is moving.",
-                  "Systems that stay correct when\neverything else is moving.",
-                ]}
-                className="!mx-0 !min-h-[8.5rem] !max-w-none !text-left !font-display !text-[clamp(2.25rem,4.5vw,3.5rem)] !font-medium !leading-[1.05] !tracking-tightest md:!min-h-[10rem] lg:!min-h-[14rem]"
-              />
+              Systems that stay correct when everything else is moving.
             </h2>
           </Reveal>
 
