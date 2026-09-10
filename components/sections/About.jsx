@@ -36,12 +36,12 @@ export default function About() {
 
         <div className="lg:col-span-8">
           <Reveal variant="fade-up">
-            <h2 className="max-w-xl text-clamp-h2 font-display font-medium leading-[1.05] text-bone">
+            <h2 className="max-w-4xl text-clamp-h2 font-display font-medium leading-[1.05] text-bone">
               Systems that stay correct when everything else is moving.
             </h2>
           </Reveal>
 
-          <div className="mt-8 max-w-2xl space-y-5">
+          <div className="mt-8 max-w-none space-y-5">
             {about.bio.map((para, i) => (
               <Reveal key={i} variant="fade-up" delay={i * 0.08}>
                 <p className="text-balance text-base leading-relaxed text-mute sm:text-lg">
