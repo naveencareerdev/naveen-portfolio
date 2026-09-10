@@ -154,6 +154,7 @@ function Band({ isMobile, frontImage, backImage, imageFit, lanyardImage, lanyard
       ref.current.lerped.lerp(ref.current.translation(), delta * distance * 50);
     });
     curve.points[0].copy(j3.current.translation());
+    curve.points[0].y += 1.35;
     curve.points[1].copy(j2.current.lerped);
     curve.points[2].copy(j1.current.lerped);
     curve.points[3].copy(fixed.current.translation());
