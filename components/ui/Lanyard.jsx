@@ -169,7 +169,7 @@ function Band({ isMobile, frontImage, backImage, imageFit, lanyardImage, lanyard
 
   return (
     <>
-      <group position={[0, 5.5, 0]}>
+      <group position={[0, 3.15, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
         <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
