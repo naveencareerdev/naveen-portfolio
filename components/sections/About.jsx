@@ -1,9 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowDownRight, Download, FileText, MapPin } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import { about, personal } from "@/lib/data";
+
+const Lanyard = dynamic(() => import("@/components/ui/Lanyard"), {
+  ssr: false,
+});
 
 export default function About() {
   return (
@@ -12,20 +16,13 @@ export default function About() {
         <div className="lg:col-span-4">
           <Reveal variant="scale" className="lg:sticky lg:top-28">
             <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] border border-line bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
-              <Image
-                src="/naveen-portrait.png"
-                alt="Naveen A"
-                fill
-                sizes="(min-width: 1024px) 384px, (min-width: 640px) 384px, calc(100vw - 3rem)"
-                className="object-cover object-[center_18%]"
-                priority
+              <Lanyard
+                position={[0, 0, 24]}
+                gravity={[0, -28, 0]}
+                frontImage="/naveen-portrait.png"
+                imageFit="cover"
+                lanyardWidth={1}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-signal/5" />
-              <div className="absolute inset-6 rounded-[1.35rem] border border-bone/20" />
-              <div className="absolute bottom-6 left-6 flex items-center gap-2 border border-bone/20 bg-ink/65 px-3 py-2 text-xs font-medium tracking-[0.16em] text-bone/90 backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-verified" />
-                NAVEEN A
-              </div>
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm text-mute">
               <MapPin size={14} />
