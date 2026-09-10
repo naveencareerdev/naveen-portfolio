@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --font-fraunces: "Fraunces", ui-serif, Georgia, serif;
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #0a0f0e;
+  color: #edeeea;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #e8963c;
+  color: #0a0f0e;
+}
+
+/* Thin, on-brand scrollbar instead of the browser default */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0f0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #25332f;
+  border: 2px solid #0a0f0e;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8b968f;
+}
+* {
+  scrollbar-color: #25332f #0a0f0e;
+  scrollbar-width: thin;
+}
+
+/* The custom cursor component adds this class once it confirms a fine
+   pointer is present, so touch devices always keep their native cursor. */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button {
+  cursor: none;
+}
+
+/* Fixed, low-opacity film grain for a physical, cinematic quality on the
+   flat dark background. Pure CSS/SVG — no image asset to ship or fetch. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
