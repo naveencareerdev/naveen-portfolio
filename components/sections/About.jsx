@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowDownRight, Download, FileText, MapPin } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
-import DecryptedText from "@/components/ui/DecryptedText";
+import { MorphingText } from "@/components/ui/morphing-text";
 import { about, personal } from "@/lib/data";
 
 export default function About() {
@@ -38,12 +38,12 @@ export default function About() {
         <div className="lg:col-span-8">
           <Reveal variant="fade-up">
             <h2 className="max-w-4xl text-clamp-h2 font-display font-medium leading-[1.05] text-bone">
-              <DecryptedText
-                text="Systems that stay correct when everything else is moving."
-                speed={45}
-                maxIterations={8}
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-                animateOn="view"
+              <MorphingText
+                texts={[
+                  "Systems that stay correct\nwhen everything else is moving.",
+                  "Systems that stay correct when\neverything else is moving.",
+                ]}
+                className="!mx-0 !min-h-[8.5rem] !max-w-none !text-left !font-display !text-[clamp(2.25rem,4.5vw,3.5rem)] !font-medium !leading-[1.05] !tracking-tightest md:!min-h-[10rem] lg:!min-h-[14rem]"
               />
             </h2>
           </Reveal>
