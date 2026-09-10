@@ -129,11 +129,16 @@ export default function Ribbons({
     });
 
     resize();
-    const mouse = new Vec3(-10, -10, 0);
-    const targetMouse = new Vec3(-10, -10, 0);
+    const mouse = new Vec3();
+    const targetMouse = new Vec3();
+    let hasPointerPosition = false;
+    let isActive = false;
     const onPointerMove = (event) => {
       if (overContent(event.target)) {
-        targetMouse.set(-10, -10, 0);
+        isActive = false;
+        lines.forEach((line) => {
+          line.polyline.mesh.program.uniforms.uOpacity.value = 0;
+        });
         return;
       }
       const rect = container.getBoundingClientRect();
@@ -142,6 +147,18 @@ export default function Ribbons({
         ((event.clientY - rect.top) / container.clientHeight) * -2 + 1,
         0,
       );
+      if (!hasPointerPosition) {
+        mouse.copy(targetMouse);
+        lines.forEach((line) => {
+          line.points.forEach((point) => point.copy(targetMouse).add(line.mouseOffset));
+          line.mouseVelocity.set(0, 0, 0);
+        });
+        hasPointerPosition = true;
+      }
+      isActive = true;
+      lines.forEach((line) => {
+        line.polyline.mesh.program.uniforms.uOpacity.value = 0.72;
+      });
     };
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -154,7 +171,7 @@ export default function Ribbons({
       const now = performance.now();
       const delta = now - lastTime;
       lastTime = now;
-      mouse.lerp(targetMouse, 0.2);
+      if (hasPointerPosition && isActive) mouse.lerp(targetMouse, 0.2);
       lines.forEach((line) => {
         temporary.copy(mouse).add(line.mouseOffset).sub(line.points[0]).multiply(line.spring);
         line.mouseVelocity.add(temporary).multiply(line.friction);
