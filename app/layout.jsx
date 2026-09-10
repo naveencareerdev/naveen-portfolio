@@ -11,7 +11,7 @@ import "@fontsource/fraunces/600-italic.css";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
-import CursorGrid from "@/components/ui/CursorGrid";
+import Ribbons from "@/components/ui/Ribbons";
 
 export const metadata = {
   title: "Naveen A — Full-Stack Developer",
@@ -45,21 +45,14 @@ export default function RootLayout({ children }) {
       <body className="bg-ink font-sans text-bone antialiased">
         <MotionConfig reducedMotion="user">
           <SmoothScroll>
-            <CursorGrid
-              cellSize={70}
-              color="#4FBEA6"
-              radius={150}
-              falloff="smooth"
-              holdTime={400}
-              fadeDuration={800}
-              lineWidth={1.2}
-              maxOpacity={0.85}
-              fillOpacity={0}
-              gridOpacity={0}
-              cellRadius={0}
-              clickPulse
-              pulseSpeed={600}
-              excludeSelector="#hero"
+            <Ribbons
+              colors={["#4FBEA6", "#E8963C"]}
+              baseThickness={18}
+              speedMultiplier={0.5}
+              maxAge={500}
+              enableFade
+              enableShaderEffect
+              effectAmplitude={1.4}
             />
             <div className="grain-overlay" aria-hidden="true" />
             {children}
