@@ -34,6 +34,7 @@ export default function CursorGrid({
   pulseSpeed = 600,
   className = "",
   excludeSelector = "",
+  contentSelector = "a, button, input, textarea, select, img, svg, video, canvas, h1, h2, h3, h4, h5, h6, p, li, [role='button'], [data-cursor]",
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -55,6 +56,7 @@ export default function CursorGrid({
     clickPulse,
     pulseSpeed,
     excludeSelector,
+    contentSelector,
   };
 
   useEffect(() => {
@@ -224,7 +226,10 @@ export default function CursorGrid({
       return [clientX - rect.left, clientY - rect.top];
     };
     const onPointerMove = (event) => {
-      if (propsRef.current.excludeSelector && event.target.closest?.(propsRef.current.excludeSelector)) {
+      if (
+        (propsRef.current.excludeSelector && event.target.closest?.(propsRef.current.excludeSelector)) ||
+        (propsRef.current.contentSelector && event.target.closest?.(propsRef.current.contentSelector))
+      ) {
         alphas.fill(0);
         touched.fill(0);
         pulses.length = 0;
@@ -240,7 +245,8 @@ export default function CursorGrid({
     const onPointerDown = (event) => {
       if (
         !propsRef.current.clickPulse ||
-        (propsRef.current.excludeSelector && event.target.closest?.(propsRef.current.excludeSelector))
+        (propsRef.current.excludeSelector && event.target.closest?.(propsRef.current.excludeSelector)) ||
+        (propsRef.current.contentSelector && event.target.closest?.(propsRef.current.contentSelector))
       ) return;
       const [x, y] = toLocal(event.clientX, event.clientY);
       pulses.push({ x, y, startedAt: performance.now() });
