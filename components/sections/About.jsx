@@ -43,7 +43,7 @@ export default function About() {
                 speed={45}
                 maxIterations={8}
                 characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-                animateOn="hover"
+                animateOn="view"
               />
             </h2>
           </Reveal>

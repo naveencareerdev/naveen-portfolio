@@ -30,6 +30,7 @@ export default function DecryptedText({
   const [direction, setDirection] = useState("forward");
   const intervalRef = useRef(null);
   const containerRef = useRef(null);
+  const hasViewedRef = useRef(false);
 
   const availableChars = useMemo(
     () => useOriginalCharsOnly
@@ -116,6 +117,21 @@ export default function DecryptedText({
   }, [direction, isAnimating, maxIterations, order, scramble, sequential, speed, text]);
 
   useEffect(() => () => clearInterval(intervalRef.current), []);
+
+  useEffect(() => {
+    if (animateOn !== "view" && animateOn !== "inViewHover") return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasViewedRef.current) {
+          hasViewedRef.current = true;
+          startDecrypt();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [animateOn, startDecrypt]);
 
   const handleEnter = () => {
     if (animateOn === "hover" || animateOn === "inViewHover") startDecrypt();
