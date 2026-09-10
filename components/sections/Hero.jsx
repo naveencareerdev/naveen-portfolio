@@ -1,49 +1,30 @@
 "use client";
 
 import { useRef } from "react";
-import dynamic from "next/dynamic";
-import { motion, useScroll, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { hero } from "@/lib/data";
 import Button from "@/components/ui/Button";
-
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
-  ssr: false,
-});
+import { ShaderAnimation } from "@/components/ui/shader-animation";
 
 const words = hero.headline.split(" ");
 
 export default function Hero() {
   const sectionRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
 
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-ink px-6"
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#080b0f] px-6"
     >
-      {/* Ambient gradient layers drift slowly and independently of the
-          cursor-driven 3D layer above them — two distinct speeds of motion
-          in the same background. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-1/4 -top-1/4 h-[70vh] w-[70vh] animate-drift rounded-full bg-signal/10 blur-[120px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-1/4 -right-1/4 h-[65vh] w-[65vh] animate-drift rounded-full bg-verified/10 blur-[120px]"
-        style={{ animationDelay: "-9s" }}
-      />
-
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0" aria-hidden="true">
-          <HeroScene scrollProgress={scrollYProgress} />
-        </div>
-      )}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        {!prefersReducedMotion && <ShaderAnimation />}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,11,15,0.18)_48%,rgba(8,11,15,0.82)_100%)]" />
+        <div className="absolute -left-[28%] top-[4%] h-[16vh] w-[155%] -rotate-[43deg] bg-[linear-gradient(90deg,transparent_0%,#ff7b3d_15%,#fff5cb_23%,#38cfff_34%,transparent_48%,#3d5dff_63%,#fff7c8_77%,#ff7842_87%,transparent_100%)] opacity-80 blur-[5px]" />
+        <div className="absolute -right-[30%] bottom-[3%] h-[14vh] w-[155%] -rotate-[43deg] bg-[linear-gradient(90deg,transparent_0%,#ff7540_15%,#fff2b7_24%,#40d7ff_37%,transparent_51%,#4c5eff_64%,#fff8d1_77%,#ff794b_89%,transparent_100%)] opacity-70 blur-[7px]" />
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
 
       <div className="relative z-10 flex max-w-4xl flex-col items-center px-2 text-center">
         <h1 className="text-clamp-hero font-display font-medium uppercase leading-[0.95] tracking-tightest text-bone">
