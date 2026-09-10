@@ -21,7 +21,8 @@ export default function About() {
                 gravity={[0, -28, 0]}
                 frontImage="/naveen-portrait.png"
                 imageFit="cover"
-                lanyardWidth={1}
+                lanyardWidth={1.8}
+                cardScale={3.25}
               />
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm text-mute">
