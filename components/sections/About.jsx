@@ -15,7 +15,7 @@ export default function About() {
       <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-4">
           <Reveal variant="scale" className="lg:sticky lg:top-28">
-            <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] border border-line bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+            <div className="relative -mt-16 h-[38rem] w-full max-w-sm sm:h-[42rem] lg:-mt-28">
               <Lanyard
                 position={[0, 0, 24]}
                 gravity={[0, -28, 0]}
