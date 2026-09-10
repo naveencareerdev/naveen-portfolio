@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowDownRight, Download, FileText, MapPin } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
+import DecryptedText from "@/components/ui/DecryptedText";
 import { about, personal } from "@/lib/data";
 
 export default function About() {
@@ -37,7 +38,13 @@ export default function About() {
         <div className="lg:col-span-8">
           <Reveal variant="fade-up">
             <h2 className="max-w-4xl text-clamp-h2 font-display font-medium leading-[1.05] text-bone">
-              Systems that stay correct when everything else is moving.
+              <DecryptedText
+                text="Systems that stay correct when everything else is moving."
+                speed={45}
+                maxIterations={8}
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                animateOn="hover"
+              />
             </h2>
           </Reveal>
 
