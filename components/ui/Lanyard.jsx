@@ -32,7 +32,7 @@ export default function Lanyard({
   imageFit = "cover",
   lanyardImage = null,
   lanyardWidth = 1.8,
-  cardScale = 3.25,
+  cardScale = 4.25,
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
 
@@ -168,7 +168,7 @@ function Band({ isMobile, frontImage, backImage, imageFit, lanyardImage, lanyard
 
   return (
     <>
-      <group position={[0, 2.7, 0]}>
+      <group position={[0, 4.15, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
         <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>

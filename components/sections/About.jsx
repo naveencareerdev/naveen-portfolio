@@ -22,7 +22,7 @@ export default function About() {
                 frontImage="/naveen-portrait.png"
                 imageFit="cover"
                 lanyardWidth={1.8}
-                cardScale={3.25}
+                cardScale={4.25}
               />
             </div>
             <div className="mt-4 flex items-center gap-2 text-sm text-mute">
