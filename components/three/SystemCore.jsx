@@ -9,9 +9,9 @@ const ORBIT_DIRECTION = 1;
 const ORBIT_DURATION = 24;
 
 const orbitNodes = [
-  { radius: 225, accent: "signal", angle: 0, logo: siReact },
-  { radius: 675, accent: "verified", angle: 60, logo: siMysql },
-  { radius: 1125, accent: "signal", angle: 120, logo: siSupabase },
+  { radius: 1125, accent: "signal", angle: 0, logo: siReact },
+  { radius: 225, accent: "verified", angle: 60, logo: siMysql },
+  { radius: 675, accent: "signal", angle: 120, logo: siSupabase },
   { radius: 1575, accent: "verified", angle: 180, logo: "api" },
   { radius: 2025, accent: "signal", angle: 240, logo: siShopify },
   { radius: 2475, accent: "verified", angle: 300, logo: siJsonwebtokens },
@@ -38,6 +38,7 @@ function OrbitNode({ node, label, parentRotation }) {
     const animation = animate(orbitRotation, node.angle + ORBIT_DIRECTION * 360, {
       duration: ORBIT_DURATION,
       repeat: Infinity,
+      repeatType: "loop",
       ease: "linear",
     });
 
