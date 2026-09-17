@@ -59,7 +59,7 @@ export default function CreativeShowcase() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[60vh] w-[60vh] -translate-x-1/2 -translate-y-1/2 animate-drift rounded-full bg-verified/5 blur-[140px]"
       />
 
-      <Reveal variant="fade-up" className="relative z-10 max-w-xl text-center">
+      <Reveal variant="fade-up" className="relative z-10 max-w-4xl text-center">
         <p className="font-display italic text-mute">The stack, made visible</p>
         <h2 className="mt-4 text-clamp-h1 font-display font-medium leading-[1.05] text-bone">
           Every sync is a system, quietly holding together.
