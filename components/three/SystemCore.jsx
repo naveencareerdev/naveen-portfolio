@@ -4,13 +4,16 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 import { systemNodes } from "@/lib/data";
 
+const ORBIT_DIRECTION = 1;
+const ORBIT_DURATION = 24;
+
 const orbitNodes = [
-  { radius: 112, accent: "signal", duration: 13, direction: 1, angle: 0, logo: "react" },
-  { radius: 148, accent: "verified", duration: 17, direction: -1, angle: 52, logo: "mysql" },
-  { radius: 184, accent: "signal", duration: 21, direction: 1, angle: 118, logo: "supabase" },
-  { radius: 220, accent: "verified", duration: 25, direction: -1, angle: 186, logo: "api" },
-  { radius: 254, accent: "signal", duration: 29, direction: 1, angle: 244, logo: "shopify" },
-  { radius: 282, accent: "verified", duration: 33, direction: -1, angle: 306, logo: "jwt" },
+  { radius: 112, accent: "signal", angle: 0, logo: "react" },
+  { radius: 148, accent: "verified", angle: 52, logo: "mysql" },
+  { radius: 184, accent: "signal", angle: 118, logo: "supabase" },
+  { radius: 220, accent: "verified", angle: 186, logo: "api" },
+  { radius: 254, accent: "signal", angle: 244, logo: "shopify" },
+  { radius: 282, accent: "verified", angle: 306, logo: "jwt" },
 ];
 
 const logoTileClass = "flex h-14 w-14 shrink-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[38%] border bg-ink/95 font-mono text-[10px] font-semibold tracking-[0.08em] text-bone shadow-xl backdrop-blur-sm";
@@ -49,14 +52,14 @@ function OrbitNode({ node, label, parentRotation }) {
   );
 
   useEffect(() => {
-    const animation = animate(orbitRotation, node.angle + node.direction * 360, {
-      duration: node.duration,
+    const animation = animate(orbitRotation, node.angle + ORBIT_DIRECTION * 360, {
+      duration: ORBIT_DURATION,
       repeat: Infinity,
       ease: "linear",
     });
 
     return () => animation.stop();
-  }, [node.angle, node.direction, node.duration, orbitRotation]);
+  }, [node.angle, orbitRotation]);
 
   const isSignal = node.accent === "signal";
   const orbitSize = `${(node.radius / 310) * 100}%`;
