@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from "react";
 import { systemNodes } from "@/lib/data";
 
 const orbitNodes = [
@@ -11,6 +12,41 @@ const orbitNodes = [
   { radius: 254, accent: "signal", duration: 29, direction: 1, angle: 244 },
   { radius: 282, accent: "verified", duration: 33, direction: -1, angle: 306 },
 ];
+
+function OrbitNode({ node, label }) {
+  const orbitRotation = useMotionValue(node.angle);
+  const labelRotation = useTransform(orbitRotation, (value) => -value);
+
+  useEffect(() => {
+    const animation = animate(orbitRotation, node.angle + node.direction * 360, {
+      duration: node.duration,
+      repeat: Infinity,
+      ease: "linear",
+    });
+
+    return () => animation.stop();
+  }, [node.angle, node.direction, node.duration, orbitRotation]);
+
+  const isSignal = node.accent === "signal";
+  const orbitSize = `${(node.radius / 310) * 100}%`;
+
+  return (
+    <motion.div
+      className="absolute left-1/2 top-1/2"
+      style={{ width: orbitSize, height: orbitSize, x: "-50%", y: "-50%", rotate: orbitRotation, transformOrigin: "center" }}
+    >
+      <motion.div
+        className="absolute left-1/2 top-0"
+        style={{ rotate: labelRotation }}
+      >
+        <div className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-line bg-ink/95 px-3 py-2 text-xs text-bone shadow-xl backdrop-blur-sm">
+          <span className={`h-2 w-2 shrink-0 rounded-full ${isSignal ? "bg-signal shadow-[0_0_10px_#E8963C]" : "bg-verified shadow-[0_0_10px_#4FBEA6]"}`} />
+          {label}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function SystemCore({ scrollProgress }) {
   const rotation = useTransform(scrollProgress, [0, 1], [-7, 7]);
@@ -29,29 +65,7 @@ export default function SystemCore({ scrollProgress }) {
       </div>
 
       {orbitNodes.map((node, index) => {
-        const label = systemNodes[index];
-        const isSignal = node.accent === "signal";
-        const orbitSize = `${(node.radius / 310) * 100}%`;
-        return (
-          <motion.div
-            key={label}
-            className="absolute left-1/2 top-1/2"
-            style={{ width: orbitSize, height: orbitSize, x: "-50%", y: "-50%", rotate: node.angle, transformOrigin: "center" }}
-            animate={{ rotate: node.angle + node.direction * 360 }}
-            transition={{ duration: node.duration, repeat: Infinity, ease: "linear" }}
-          >
-            <motion.div
-              className="absolute left-1/2 top-0"
-              animate={{ rotate: node.direction * -360 }}
-              transition={{ duration: node.duration, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-line bg-ink/95 px-3 py-2 text-xs text-bone shadow-xl backdrop-blur-sm">
-                <span className={`h-2 w-2 shrink-0 rounded-full ${isSignal ? "bg-signal shadow-[0_0_10px_#E8963C]" : "bg-verified shadow-[0_0_10px_#4FBEA6]"}`} />
-                {label}
-              </div>
-            </motion.div>
-          </motion.div>
-        );
+        return <OrbitNode key={systemNodes[index]} node={node} label={systemNodes[index]} />;
       })}
     </motion.div>
   );
