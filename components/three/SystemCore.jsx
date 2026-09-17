@@ -9,12 +9,12 @@ const ORBIT_DIRECTION = 1;
 const ORBIT_DURATION = 24;
 
 const orbitNodes = [
-  { radius: 75, accent: "signal", angle: 0, logo: siReact },
-  { radius: 225, accent: "verified", angle: 60, logo: siMysql },
-  { radius: 375, accent: "signal", angle: 120, logo: siSupabase },
-  { radius: 525, accent: "verified", angle: 180, logo: "api" },
-  { radius: 675, accent: "signal", angle: 240, logo: siShopify },
-  { radius: 825, accent: "verified", angle: 300, logo: siJsonwebtokens },
+  { radius: 225, accent: "signal", angle: 0, logo: siReact },
+  { radius: 675, accent: "verified", angle: 60, logo: siMysql },
+  { radius: 1125, accent: "signal", angle: 120, logo: siSupabase },
+  { radius: 1575, accent: "verified", angle: 180, logo: "api" },
+  { radius: 2025, accent: "signal", angle: 240, logo: siShopify },
+  { radius: 2475, accent: "verified", angle: 300, logo: siJsonwebtokens },
 ];
 
 const logoTileClass = "flex h-14 w-14 shrink-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[38%] border bg-ink/95 font-mono text-[10px] font-semibold tracking-[0.08em] text-bone shadow-xl backdrop-blur-sm";
@@ -45,7 +45,7 @@ function OrbitNode({ node, label, parentRotation }) {
   }, [node.angle, orbitRotation]);
 
   const isSignal = node.accent === "signal";
-  const orbitSize = `${(node.radius / 900) * 100}%`;
+  const orbitSize = `${(node.radius / 2700) * 100}%`;
 
   return (
     <motion.div
@@ -76,8 +76,8 @@ export default function SystemCore({ scrollProgress }) {
 
   return (
     <motion.div className="relative mx-auto aspect-square h-full max-h-[620px] w-full max-w-[620px]" style={{ rotate: rotation, scale }}>
-      <svg viewBox="0 0 1800 1800" className="absolute inset-0 h-full w-full" aria-hidden="true">
-        {orbitNodes.map((node, index) => <circle key={systemNodes[index]} cx="900" cy="900" r={node.radius} fill="none" stroke={index % 2 === 0 ? "#8A5F2C" : "#2F6E60"} strokeOpacity="0.42" strokeWidth="1.25" />)}
+      <svg viewBox="0 0 5400 5400" className="absolute inset-0 h-full w-full" aria-hidden="true">
+        {orbitNodes.map((node, index) => <circle key={systemNodes[index]} cx="2700" cy="2700" r={node.radius} fill="none" stroke={index % 2 === 0 ? "#8A5F2C" : "#2F6E60"} strokeOpacity="0.42" strokeWidth="1.25" />)}
       </svg>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
