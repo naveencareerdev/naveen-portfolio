@@ -66,7 +66,7 @@ export default function CreativeShowcase() {
         </h2>
       </Reveal>
 
-      <div className="relative z-10 mt-4 h-[65vh] w-full max-w-3xl">
+      <div className="relative z-10 mt-4 h-[80vh] w-full max-w-5xl">
         {prefersReducedMotion ? (
           <StaticOrbit />
         ) : (

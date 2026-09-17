@@ -75,7 +75,7 @@ export default function SystemCore({ scrollProgress }) {
   const scale = useTransform(scrollProgress, [0, 1], [1, 1.04]);
 
   return (
-    <motion.div className="relative mx-auto aspect-square h-full max-h-[620px] w-full max-w-[620px]" style={{ rotate: rotation, scale }}>
+    <motion.div className="relative mx-auto aspect-square h-full max-h-[900px] w-full max-w-[900px]" style={{ rotate: rotation, scale }}>
       <svg viewBox="0 0 5400 5400" className="absolute inset-0 h-full w-full" aria-hidden="true">
         {orbitNodes.map((node, index) => <circle key={systemNodes[index]} cx="2700" cy="2700" r={node.radius} fill="none" stroke={index % 2 === 0 ? "#8A5F2C" : "#2F6E60"} strokeOpacity="0.42" strokeWidth="1.25" />)}
       </svg>
