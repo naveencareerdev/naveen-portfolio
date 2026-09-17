@@ -5,13 +5,15 @@ import { useEffect } from "react";
 import { systemNodes } from "@/lib/data";
 
 const orbitNodes = [
-  { radius: 112, accent: "signal", duration: 13, direction: 1, angle: 0 },
-  { radius: 148, accent: "verified", duration: 17, direction: -1, angle: 52 },
-  { radius: 184, accent: "signal", duration: 21, direction: 1, angle: 118 },
-  { radius: 220, accent: "verified", duration: 25, direction: -1, angle: 186 },
-  { radius: 254, accent: "signal", duration: 29, direction: 1, angle: 244 },
-  { radius: 282, accent: "verified", duration: 33, direction: -1, angle: 306 },
+  { radius: 112, accent: "signal", duration: 13, direction: 1, angle: 0, mark: "R" },
+  { radius: 148, accent: "verified", duration: 17, direction: -1, angle: 52, mark: "SQL" },
+  { radius: 184, accent: "signal", duration: 21, direction: 1, angle: 118, mark: "SB" },
+  { radius: 220, accent: "verified", duration: 25, direction: -1, angle: 186, mark: "API" },
+  { radius: 254, accent: "signal", duration: 29, direction: 1, angle: 244, mark: "S" },
+  { radius: 282, accent: "verified", duration: 33, direction: -1, angle: 306, mark: "JWT" },
 ];
+
+const logoTileClass = "flex h-14 w-14 shrink-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[38%] border bg-ink/95 font-mono text-[10px] font-semibold tracking-[0.08em] text-bone shadow-xl backdrop-blur-sm";
 
 function OrbitNode({ node, label }) {
   const orbitRotation = useMotionValue(node.angle);
@@ -39,9 +41,14 @@ function OrbitNode({ node, label }) {
         className="absolute left-1/2 top-0"
         style={{ rotate: labelRotation }}
       >
-        <div className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-line bg-ink/95 px-3 py-2 text-xs text-bone shadow-xl backdrop-blur-sm">
-          <span className={`h-2 w-2 shrink-0 rounded-full ${isSignal ? "bg-signal shadow-[0_0_10px_#E8963C]" : "bg-verified shadow-[0_0_10px_#4FBEA6]"}`} />
-          {label}
+        <div
+          role="img"
+          aria-label={label}
+          title={label}
+          className={`${logoTileClass} ${isSignal ? "border-signal/60 shadow-[0_0_20px_rgba(232,150,60,0.18)]" : "border-verified/60 shadow-[0_0_20px_rgba(79,190,166,0.18)]"}`}
+        >
+          <span className={`absolute h-2 w-2 -translate-y-5 rounded-full ${isSignal ? "bg-signal shadow-[0_0_10px_#E8963C]" : "bg-verified shadow-[0_0_10px_#4FBEA6]"}`} />
+          {node.mark}
         </div>
       </motion.div>
     </motion.div>
