@@ -8,13 +8,27 @@ import { systemNodes } from "@/lib/data";
 const ORBIT_DIRECTION = 1;
 const ORBIT_DURATION = 24;
 
+// Ring radii, innermost (ring 1) to outermost (ring 6). Nodes reference a
+// ring index instead of a raw radius so "which circle does this start on"
+// is explicit and can't drift out of sync with the drawn rings below.
+const RING_RADII = [225, 675, 1125, 1575, 2025, 2475];
+const LANE_SPACING = RING_RADII[1] - RING_RADII[0];
+
+// How far (in SVG units) a node drifts off its home ring as it orbits, and
+// how many lane-changes it completes per full revolution. This is what
+// makes a node weave across neighboring rings instead of tracing a single
+// fixed circle forever.
+const LANE_DRIFT_AMPLITUDE = LANE_SPACING * 0.85;
+const MIN_ORBIT_RADIUS = 150;
+const MAX_ORBIT_RADIUS = RING_RADII[RING_RADII.length - 1] + LANE_SPACING / 2;
+
 const orbitNodes = [
-  { radius: 1125, accent: "signal", angle: 0, logo: siReact },
-  { radius: 225, accent: "verified", angle: 60, logo: siMysql },
-  { radius: 675, accent: "signal", angle: 120, logo: siSupabase },
-  { radius: 1575, accent: "verified", angle: 180, logo: "api" },
-  { radius: 2025, accent: "signal", angle: 240, logo: siShopify },
-  { radius: 2475, accent: "verified", angle: 300, logo: siJsonwebtokens },
+  { ring: 3, accent: "signal", angle: 0, logo: siReact, driftCycles: 1, driftPhase: 0 },
+  { ring: 1, accent: "verified", angle: 60, logo: siMysql, driftCycles: 1.5, driftPhase: 40 },
+  { ring: 2, accent: "signal", angle: 120, logo: siSupabase, driftCycles: 1, driftPhase: 200 },
+  { ring: 4, accent: "verified", angle: 180, logo: "api", driftCycles: 2, driftPhase: 90 },
+  { ring: 5, accent: "signal", angle: 240, logo: siShopify, driftCycles: 1.5, driftPhase: 260 },
+  { ring: 6, accent: "verified", angle: 300, logo: siJsonwebtokens, driftCycles: 1, driftPhase: 140 },
 ];
 
 const logoTileClass = "flex h-14 w-14 shrink-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[38%] border bg-ink/95 font-mono text-[10px] font-semibold tracking-[0.08em] text-bone shadow-xl backdrop-blur-sm";
@@ -45,8 +59,19 @@ function OrbitNode({ node, label, parentRotation }) {
     return () => animation.stop();
   }, [node.angle, orbitRotation]);
 
+  // The node's live distance from center: its home ring plus a sine drift
+  // that carries it into neighboring lanes and back as it travels, instead
+  // of holding a single fixed radius for the whole orbit.
+  const baseRadius = RING_RADII[node.ring - 1];
+  const orbitRadius = useTransform(orbitRotation, (angle) => {
+    const travelled = angle - node.angle;
+    const driftAngle = (travelled * node.driftCycles + node.driftPhase) * (Math.PI / 180);
+    const drifted = baseRadius + LANE_DRIFT_AMPLITUDE * Math.sin(driftAngle);
+    return Math.min(MAX_ORBIT_RADIUS, Math.max(MIN_ORBIT_RADIUS, drifted));
+  });
+  const orbitSize = useTransform(orbitRadius, (radius) => `${(radius / 2700) * 100}%`);
+
   const isSignal = node.accent === "signal";
-  const orbitSize = `${(node.radius / 2700) * 100}%`;
 
   return (
     <motion.div
@@ -78,7 +103,7 @@ export default function SystemCore({ scrollProgress }) {
   return (
     <motion.div className="relative mx-auto aspect-square h-full max-h-[900px] w-full max-w-[900px]" style={{ rotate: rotation, scale }}>
       <svg viewBox="0 0 5400 5400" className="absolute inset-0 h-full w-full" aria-hidden="true">
-        {orbitNodes.map((node, index) => <circle key={systemNodes[index]} cx="2700" cy="2700" r={node.radius} fill="none" stroke={index % 2 === 0 ? "#8A5F2C" : "#2F6E60"} strokeOpacity="0.42" strokeWidth="1.25" />)}
+        {RING_RADII.map((radius, index) => <circle key={radius} cx="2700" cy="2700" r={radius} fill="none" stroke={index % 2 === 0 ? "#8A5F2C" : "#2F6E60"} strokeOpacity="0.42" strokeWidth="1.25" />)}
       </svg>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
