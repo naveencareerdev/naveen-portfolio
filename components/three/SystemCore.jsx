@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useTransform } from "framer-motion";
-import { siGithub, siNodedotjs, siReact, siSupabase, siVercel } from "simple-icons";
+import { siGithub, siNodedotjs, siReact, siShopify, siSupabase, siVercel } from "simple-icons";
 import OrbitImages from "@/components/ui/OrbitImages";
 
 const iconColor = {
@@ -16,11 +16,12 @@ const logoSources = [
   { logo: siGithub, label: "GitHub", accent: "verified" },
   { logo: siVercel, label: "Vercel", accent: "signal" },
   { logo: "https://cdn.simpleicons.org/visualstudiocode/4FBEA6", label: "VS Code", accent: "verified" },
+  { logo: siShopify, label: "Shopify", accent: "signal" },
 ];
 
 function logoDataUri(logo, color) {
   if (typeof logo === "string") return logo;
-  const path = `<path d='${logo.path}' fill='COLOR'/>`;
+  const path = `<path d='${logo.path}' fill='COLOR'/></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>${path.replace("COLOR", color)}`)}`;
 }
 
