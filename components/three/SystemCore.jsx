@@ -15,7 +15,7 @@ const logoSources = [
   { logo: siSupabase, label: "Supabase", accent: "signal" },
   { logo: siGithub, label: "GitHub", accent: "verified" },
   { logo: siVercel, label: "Vercel", accent: "signal" },
-  { logo: "https://cdn.simpleicons.org/visualstudiocode/4FBEA6", label: "VS Code", accent: "verified" },
+  { logo: "https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_vscode.svg", label: "VS Code", accent: "verified" },
   { logo: siShopify, label: "Shopify", accent: "signal" },
 ];
 
