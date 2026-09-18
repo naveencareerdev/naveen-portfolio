@@ -22,11 +22,30 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    const isMobile = window.innerWidth < 768;
+    const shouldLockScroll = menuOpen && isMobile;
+
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = shouldLockScroll ? "hidden" : "";
+    }
+
+    if (lenis && typeof lenis.stop === "function") {
+      if (shouldLockScroll) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    }
+
     return () => {
-      document.body.style.overflow = "";
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+      if (lenis && typeof lenis.start === "function") {
+        lenis.start();
+      }
     };
-  }, [menuOpen]);
+  }, [menuOpen, lenis]);
 
   function handleLogoClick(e) {
     e.preventDefault();
