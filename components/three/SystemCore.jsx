@@ -54,13 +54,15 @@ export default function SystemCore({ scrollProgress }) {
       <OrbitImages
         images={images}
         altPrefix="Technology"
-        shape="ellipse"
+        shape="circle"
         baseWidth={1400}
-        radiusX={530}
-        radiusY={430}
+        radius={390}
         rotation={0}
         duration={24}
         itemSize={56}
+        showPath
+        pathColor="rgba(79, 190, 166, 0.28)"
+        pathWidth={1.25}
         responsive
         centerContent={(
           <motion.div className="flex h-28 w-28 items-center justify-center rounded-[34%] border border-signal/60 bg-surface shadow-[0_0_70px_rgba(232,150,60,0.22)]" animate={{ rotate: 360 }} transition={{ duration: 18, repeat: Infinity, ease: "linear" }}>
